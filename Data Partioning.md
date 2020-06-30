@@ -38,8 +38,18 @@ A combination of the above criterias: list + hashing.
 
 ### Commons problems of partitioning
 #### Joins and denormalizations
+Joins on a database distributed amongst different servers is not efficient (as data has to
+be compiled from multiple servers). A common workaround is to denormalize the database,
+however, this can lead to inconsistency.
 
 #### Referential integrity
+Enforce data integrity constraints, such as, foreign keys on a partitioned
+database can be extremely difficult.
+Most relational databases do not support foreign key constraints across databases
+on different database servers.Which means that applications that require referential integrity
+on partitioned databases often have to enforce it in application code.
 
 #### Rebalancing
-
+Redistribution may be needed when the partition key leads to unevenly distributed partitions.
+Therefore, data group with the same partition key (zipCods) can be too big to fit into 
+one partition, or it can lead to hot partitioning.
